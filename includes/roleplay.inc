@@ -21,7 +21,6 @@ enum int_client_data {
 	i_Salary,
 	i_LastSteal,
 	i_TimeSteal,
-	i_Loan
 };
 
 enum bool_client_data {
@@ -32,11 +31,7 @@ enum bool_client_data {
 	b_CanCallCop,
 	b_Hack,
 	b_Account,
-};
-
-enum int_loan_data {
-	l_Valor,
-	l_Delay
+	b_Census
 };
 
 //---------------------------------------------
@@ -154,19 +149,17 @@ native bool GetProtectJob(int id_job);
 */
 native bool SetProtectJob(int id_job, bool valor=false);
 /**
-* Get if a client have a loan or not
-* @param  int    		  client
-* @return bool    		  true if the client have a loan false otherwise
+* Set the capital in monday (monday_classment)
+* @param  int    		  id of the job
+* @param  int    		  valor
 */
-native bool GetClientLoan(int client);
+native void SetMondayCapital(int id_job, int valor);
 /**
-* Get the information of a loan
-* @param  int    		  client
-* @param  int_loan_data   data
-* @return int             valor
+* Get the capital of a job in monday (monday_classment)
+* @param  int    		  id of the job
+* @return int    		  capital of the id job
 */
-native int GetLoanInformation(int client, int_loan_data data);
-
+native void GetMondayCapital(int id_job);
 //---------------------------------------------
 
 stock Handle ConnectDB() {
@@ -191,4 +184,5 @@ stock bool FilterTraceTarget(int entity, int contentsMask, any data){
 		
 	return true;
 }
+
 //---------------------------------------------
