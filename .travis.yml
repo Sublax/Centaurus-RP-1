@@ -1,0 +1,24 @@
+language: SourcePAWN
+sudo: false
+
+addons:
+    apt_packages:
+        - lib32stdc++6
+
+env:
+    - SMVERSION=1.8
+
+install:
+    - wget http://sourcemod.net/smdrop/$SMVERSION/ -O - | grep "\.tar\.gz" | sed 's/^.*"sourcemod/sourcemod/;s/\.tar\.gz".*$/.tar.gz/' | tail --lines=1 > sourcemod
+    - wget --input-file=sourcemod --base=http://sourcemod.net/smdrop/$SMVERSION/
+    - tar -xzf $(cat sourcemod)
+    - wget "https://github.com/bcserv/smlib/archive/master.zip" -O tmp.zip && unzip tmp.zip
+    - cp -R smlib-master/scripting/include/ ./addons/sourcemod/scripting/
+    
+before_script:
+    - cp includes/*.inc addons/sourcemod/scripting/include/
+    - cd addons/sourcemod/scripting/
+    - chmod +x spcomp
+
+script: 
+    - for i in ./../../../*/*.sp; do echo -e "\nCurrent compilation... $i"; ./spcomp $i; RETVAL=$?; if [ $RETVAL -ne 0 ]; then exit 1; fi; done;
