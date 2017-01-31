@@ -31,7 +31,8 @@ enum bool_client_data {
 	b_CanCallCop,
 	b_Hack,
 	b_Account,
-	b_Census
+	b_Census,
+	b_ContactBoss
 };
 
 //---------------------------------------------
@@ -131,11 +132,17 @@ native bool GetClientBoss(int client);
 */
 native int GetRandomCapital(int id_capital);
 /**
-* Get random capital
+* Get if a job is in exchange
 * @param  int    		  id of the job
 * @return bool            true if the job is in exchange false otherwise
 */
 native bool GetExchangeJob(int id_job);
+/**
+* Set a job in exchange or delete a job in exchange
+* @param  int    		  id of the job
+* @param  bool    		  valor
+*/
+native void SetExchangeJob(int id_job, bool valor);
 /**
 * Get the protection of a job
 * @param  int    		  id of the job
@@ -148,18 +155,7 @@ native bool GetProtectJob(int id_job);
 * @param  bool    		  valor
 */
 native bool SetProtectJob(int id_job, bool valor=false);
-/**
-* Set the capital in monday (monday_classment)
-* @param  int    		  id of the job
-* @param  int    		  valor
-*/
-native void SetMondayCapital(int id_job, int valor);
-/**
-* Get the capital of a job in monday (monday_classment)
-* @param  int    		  id of the job
-* @return int    		  capital of the id job
-*/
-native void GetMondayCapital(int id_job);
+
 //---------------------------------------------
 
 stock Handle ConnectDB() {
