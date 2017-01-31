@@ -381,3 +381,12 @@ public Action Timer_Kit(Handle timer, Handle dp) {
 	
 	return Plugin_Continue;
 }
+
+public Action Cmd_Trafic(int client) {
+	#if defined DEBUG
+	PrintToServer("Cmd_Trafic");
+	#endif
+	
+	return Plugin_Handled;
+}
+
