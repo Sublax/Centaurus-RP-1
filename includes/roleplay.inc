@@ -21,6 +21,7 @@ enum int_client_data {
 	i_Salary,
 	i_LastSteal,
 	i_TimeSteal,
+	i_Action
 };
 
 enum bool_client_data {
@@ -155,6 +156,7 @@ native bool GetProtectJob(int id_job);
 * @param  bool    		  valor
 */
 native bool SetProtectJob(int id_job, bool valor=false);
+
 
 //---------------------------------------------
 

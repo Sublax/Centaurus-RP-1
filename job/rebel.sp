@@ -36,6 +36,8 @@ public void OnMapStart() {
 public Action OnClientSayCommand(int client, const char[] command, const char[] args) {
 	if(StrEqual(args, "/rebel") || StrEqual(args, "/r")) 
 		return Cmd_Rebel(client);
+	else if(StrEqual(args, "/trafic"))
+		return Cmd_Trafic(client);
 		
 	return Plugin_Continue;
 }
