@@ -30,13 +30,19 @@ public void OnPluginStart()
 	
 	for (int i = 1; i <= 10; i++) {
 		char sQuery[256];
-		Format(sQuery, sizeof(sQuery), "SELECT capital FROM job WHERE id_job = '%d'", i);
+		Format(sQuery, sizeof(sQuery), "SELECT capital, is_exchange FROM job WHERE id_job = '%d'", i);
 		Handle row = SQL_Query(DB, sQuery);
 		
 		if(SQL_FetchRow(row)) {
 			SetCapital(i, SQL_FetchInt(row, 0));
-			SetMondayCapital(i, GetCapital(i));
+			
+			if(SQL_FetchInt(row, 1) == 1) 
+				SetExchangeJob(i, true);
+			else 
+				SetExchangeJob(i, false);
 		}
+		
+		
 	}
 	
 	CreateTimer(25.0, Timer_UpdateInfo, TIMER_REPEAT);
@@ -44,16 +50,19 @@ public void OnPluginStart()
 }
 
 public void OnPluginEnd() {
-	/*int protect;
+	int protect;
 	for (int i = 1; i <= 10; i++) {
 		char uQuery[256];
+		
 		if(GetProtectJob(i))
 			protect = 1;
 		else 
-			protect = 2;
-		Format(uQuery, sizeof(uQuery), "UPDATE job SET capital='%d', protect_hackind='%d' WHERE id_job = '%d'", GetCapital(GetClientJobId(i)), protect, i);
+			protect = 0;
+			
+			
+		Format(uQuery, sizeof(uQuery), "UPDATE job SET capital='%d', protect_hacking='%d' WHERE id_job = '%d'", GetCapital(GetClientJobId(i)), protect, i);
 		SQL_FastQuery(DB, uQuery);
-	}*/
+	}
 }
 
 public Action Timer_UpdateInfo(Handle timer) { 
